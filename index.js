@@ -79,10 +79,16 @@ class CanvasThumbnailCache {
   }
 
   // Data
+  /**
+   * @private
+   */
   getIndexArray(size) {
     return new Array(size).fill(null);
   }
 
+  /**
+   * @private
+   */
   getSlot() {
     let index = this.indices.findIndex((index) => index === null);
 
@@ -110,6 +116,9 @@ class CanvasThumbnailCache {
   }
 
   // Canvas operations
+  /**
+   * @private
+   */
   updateCanvas(clear) {
     const newSize = this.size * this.slotSize;
     if (clear) {
@@ -128,6 +137,9 @@ class CanvasThumbnailCache {
     }
   }
 
+  /**
+   * @private
+   */
   drawSource(image, slot) {
     const ratio = image.naturalWidth / image.naturalHeight;
 
@@ -158,6 +170,9 @@ class CanvasThumbnailCache {
     }
   }
 
+  /**
+   * @private
+   */
   clearSlot(slot) {
     this.context.clearRect(slot.x, slot.y, this.slotSize, this.slotSize);
   }
