@@ -1,8 +1,25 @@
-import createCanvasContext from "canvas-context";
+import canvasContext from "canvas-context";
 
-export default class CanvasThumbnailCache {
+/**
+ * @typedef {Object} Slot
+ * @property {number} x Horizontal position in the grid.
+ * @property {number} y Vertical position in the grid.
+ */
+
+/**
+ * @typedef {Object} Options
+ * @property {CanvasRenderingContext2D} [context=createCanvasContext("2d", { offscreen: true }).context] Canvas to render thumbnails too. Will try to get an offscreen canvas by default.
+ * @property {number} [size=2]  Size of the canvas at start: a square with sides of length `slotSize * size`.
+ * @property {number} [slotSize=64] Size of the thumbnails. Will be drawn from center of the grid slot.
+ */
+
+class CanvasThumbnailCache {
+  /**
+   * Creates an instance of CanvasThumbnailCache.
+   * @param {Options} [options={}]
+   */
   constructor({
-    context = createCanvasContext("2d", { offscreen: true }).context,
+    context = canvasContext("2d", { offscreen: true }).context,
     slotSize = 64,
     size = 2,
   } = {}) {
@@ -15,6 +32,9 @@ export default class CanvasThumbnailCache {
   }
 
   // Public
+  /**
+   * Reset and clear the canvas size and empty the thumbnails cache.
+   */
   reset() {
     this.size = this.initSize;
     this.indices = this.getIndexArray(this.size * this.size);
@@ -22,6 +42,12 @@ export default class CanvasThumbnailCache {
     this.updateCanvas(true);
   }
 
+  /**
+   * Add an image (or anything that can be draw into a 2D canvas) to the cache and return its slot.
+   * @param {string} key Slots map key
+   * @param {CanvasImageSource} source HTMLImageElement, SVGImageElement, HTMLVideoElement, HTMLCanvasElement, ImageBitmap, OffscreenCanvas
+   * @returns {Slot}
+   */
   add(key, source) {
     const slot = this.getSlot();
     this.drawSource(source, slot);
@@ -30,10 +56,21 @@ export default class CanvasThumbnailCache {
     return slot;
   }
 
+  /**
+   * Get a slot
+   *
+   * The slot can also be retrieved with get and the key passed when calling `thumbnailsCache.add(key, source)`.
+   * @param {string} key
+   * @returns {Slot}
+   */
   get(key) {
     return this.slots.get(key);
   }
 
+  /**
+   * Remove the specified image from the cache and clear its slot.
+   * @param {string} key
+   */
   remove(key) {
     const slot = this.slots.get(key);
     this.clearSlot(slot);
@@ -125,3 +162,5 @@ export default class CanvasThumbnailCache {
     this.context.clearRect(slot.x, slot.y, this.slotSize, this.slotSize);
   }
 }
+
+export default CanvasThumbnailCache;

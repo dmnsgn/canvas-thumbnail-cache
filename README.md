@@ -1,19 +1,28 @@
-# canvas-thumbnail-cache [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+# canvas-thumbnail-cache
 
-[![npm version](https://badge.fury.io/js/canvas-thumbnail-cache.svg)](https://www.npmjs.com/package/canvas-thumbnail-cache)
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![npm version](https://img.shields.io/npm/v/canvas-thumbnail-cache)](https://www.npmjs.com/package/canvas-thumbnail-cache)
+[![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)](https://www.npmjs.com/package/canvas-thumbnail-cache)
+[![npm minzipped size](https://img.shields.io/bundlephobia/minzip/canvas-thumbnail-cache)](https://www.npmjs.com/package/canvas-thumbnail-cache)
+[![dependencies](https://img.shields.io/david/dmnsgn/canvas-thumbnail-cache)](https://github.com/dmnsgn/canvas-thumbnail-cache/blob/main/package.json)
+[![types](https://img.shields.io/npm/types/canvas-thumbnail-cache)](https://github.com/microsoft/TypeScript)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-fa6673.svg)](https://conventionalcommits.org)
+[![styled with prettier](https://img.shields.io/badge/styled_with-Prettier-f8bc45.svg?logo=prettier)](https://github.com/prettier/prettier)
+[![linted with eslint](https://img.shields.io/badge/linted_with-ES_Lint-4B32C3.svg?logo=eslint)](https://github.com/eslint/eslint)
+[![license](https://img.shields.io/github/license/dmnsgn/canvas-thumbnail-cache)](https://github.com/dmnsgn/canvas-thumbnail-cache/blob/main/LICENSE.md)
 
 Draw images into a canvas square grid for fast retrieval at a thumbnail size.
 
-![](https://raw.githubusercontent.com/dmnsgn/canvas-thumbnail-cache/master/screenshot.gif)
+[![paypal](https://img.shields.io/badge/donate-paypal-informational?logo=paypal)](https://paypal.me/dmnsgn)
+[![coinbase](https://img.shields.io/badge/donate-coinbase-informational?logo=coinbase)](https://commerce.coinbase.com/checkout/56cbdf28-e323-48d8-9c98-7019e72c97f3)
+[![twitter](https://img.shields.io/twitter/follow/dmnsgn?style=social)](https://twitter.com/dmnsgn)
+
+![](https://raw.githubusercontent.com/dmnsgn/canvas-thumbnail-cache/main/screenshot.gif)
 
 ## Installation
 
 ```bash
 npm install canvas-thumbnail-cache
 ```
-
-[![NPM](https://nodei.co/npm/canvas-thumbnail-cache.png)](https://nodei.co/npm/canvas-thumbnail-cache/)
 
 ## Usage
 
@@ -28,62 +37,35 @@ document.body.appendChild(canvas);
 const COUNT = 50;
 
 const thumbnailsCache = new CanvasThumbnailCache({
-	context,
-	slotSize: 128,
+  context,
+  slotSize: 128,
 });
 
 (async () => {
-	const items = Array.from({ length: COUNT }, (_, index) => {
-		return {
-			id: index,
-			src: `https://source.unsplash.com/collection/155977/${index}`,
-			loader: "Image",
-		};
-	});
+  const items = Array.from({ length: COUNT }, (_, index) => {
+    return {
+      id: index,
+      src: `https://source.unsplash.com/collection/155977/${index}`,
+      loader: "Image",
+    };
+  });
 
-	items.map(async (item) => {
-		const image = await AsyncPreloader.default.loadItem(item);
+  items.map(async (item) => {
+    const image = await AsyncPreloader.default.loadItem(item);
 
-		thumbnailsCache.add(item.id, image);
-	});
+    thumbnailsCache.add(item.id, image);
+  });
 })();
 ```
 
 ## API
 
-### `const thumbnailsCache = new CanvasThumbnailCache(options)`
+<!-- api-start -->
 
-| Option               | Type                      | Default                                                | Description                                                                      |
-| -------------------- | ------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------- |
-| **options.context**  | CanvasRenderingContext2D? | createCanvasContext("2d", { offscreen: true }).context | Canvas to render thumbnails too. Will try to get an offscreen canvas by default. |
-| **options.size**     | number?                   | 2                                                      | Size of the canvas at start: a square with sides of length `slotSize * size`.    |
-| **options.slotSize** | number?                   | 64                                                     | Size of the thumbnails. Will be drawn from center of the grid slot.              |
+Auto-generated API content.
 
-#### interface Slot
-
-Port options are all optional and intended to change the appearance in the Inspector component (using slider instead of number box, adding color interface for an array of 4 components...).
-
-| Option | Type    | Description                      |
-| :----- | :------ | :------------------------------- |
-| **x**  | integer | Horizontal position in the grid. |
-| **y**  | integer | Vertical position in the grid.   |
-
-### `thumbnailsCache.add(key: string, source: CanvasImageSource): Slot`
-
-Add an image (or anything that can be draw into a 2D canvas) to the cache and return its slot.
-
-### `thumbnailsCache.get(key: string)`
-
-The slot can also be retrieved with get and the key passed when calling `thumbnailsCache.add(key, source)`.
-
-### `thumbnailsCache.remove(key: string)`
-
-Remove the specified image from the cache and clear its slot.
-
-### `thumbnailsCache.reset(key: string)`
-
-Reset and clear the canvas size and empty the thumbnails cache.
+<!-- api-end -->
 
 ## License
 
-MIT. See [license file](https://github.com/dmnsgn/canvas-thumbnail-cache/blob/master/LICENSE.md).
+MIT. See [license file](https://github.com/dmnsgn/canvas-thumbnail-cache/blob/main/LICENSE.md).

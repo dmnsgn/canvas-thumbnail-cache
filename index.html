@@ -1,27 +1,69 @@
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>canvas-thumbnail-cache</title>
-		<style>
-			body {
-				margin: 0;
-				overscroll-behavior: none;
-			}
-		</style>
-	</head>
-	<body>
-		<script type="module" src="https://jspm.dev/es-module-shims"></script>
-		<script type="importmap-shim">
-			{
-			  "imports": {
-			    "canvas-context": "https://jspm.dev/canvas-context",
-			    "async-preloader": "https://jspm.dev/async-preloader"
-			  }
-			}
-		</script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      canvas-thumbnail-cache by Damien Seguin (https://github.com/dmnsgn)
+    </title>
+    <style>
+      :root {
+        --color-dark: #404040;
+        --color-light: #f2f2f2;
+        --color-accent: #fd5e62;
+      }
 
-		<script src="demo.js" type="module-shim"></script>
-	</body>
+      body {
+        margin: 0;
+        overscroll-behavior: none;
+        font-family: sans-serif;
+        color: var(--color-dark);
+        background-color: var(--color-light);
+      }
+
+      main {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>canvas-thumbnail-cache</h1>
+    </main>
+    <script async src="web_modules/es-module-shims.js"></script>
+    <script src="web_modules/import-map.json" type="importmap"></script>
+
+    <script type="module">
+      import CanvasThumbnailCache from "./index.js";
+      import createCanvasContext from "canvas-context";
+      import AsyncPreloader from "async-preloader";
+
+      const { canvas, context } = createCanvasContext("2d");
+      document.body.appendChild(canvas);
+
+      const COUNT = 50;
+
+      const thumbnailsCache = new CanvasThumbnailCache({
+        context,
+        slotSize: 128,
+      });
+
+      (async () => {
+        const items = Array.from({ length: COUNT }, (_, index) => {
+          return {
+            id: index,
+            src: `https://source.unsplash.com/collection/155977/${index}`,
+            loader: "Image",
+          };
+        });
+
+        items.map(async (item) => {
+          const image = await AsyncPreloader.loadItem(item);
+
+          thumbnailsCache.add(item.id, image);
+        });
+      })();
+    </script>
+  </body>
 </html>

@@ -2,31 +2,40 @@
   "name": "canvas-thumbnail-cache",
   "version": "1.0.0",
   "description": "Draw images into a canvas square grid for fast retrieval at a thumbnail size.",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "npx browser-sync"
-  },
-  "author": "Damien Seguin (https://dmnsgn.me)",
-  "license": "MIT",
-  "devDependencies": {
-    "async-preloader": "^4.9.2",
-    "browser-sync": "^2.26.13"
-  },
-  "dependencies": {
-    "canvas-context": "^2.0.0"
-  },
   "keywords": [
     "canvas",
     "thumbnails",
     "cache"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/dmnsgn/canvas-thumbnail-cache.git"
-  },
   "homepage": "https://github.com/dmnsgn/canvas-thumbnail-cache",
-  "bugs": {
-    "url": "https://github.com/dmnsgn/canvas-thumbnail-cache/issues"
+  "bugs": "https://github.com/dmnsgn/canvas-thumbnail-cache/issues",
+  "repository": "dmnsgn/canvas-thumbnail-cache",
+  "funding": [
+    {
+      "type": "individual",
+      "url": "https://paypal.me/dmnsgn"
+    },
+    {
+      "type": "individual",
+      "url": "https://commerce.coinbase.com/checkout/56cbdf28-e323-48d8-9c98-7019e72c97f3"
+    }
+  ],
+  "license": "MIT",
+  "author": "Damien Seguin (https://github.com/dmnsgn)",
+  "sideEffects": false,
+  "type": "module",
+  "main": "index.js",
+  "types": "types/index.d.ts",
+  "engines": {
+    "node": ">=15.0.0",
+    "npm": ">=7.0.0"
+  },
+  "devDependencies": {
+    "async-preloader": "^5.0.2",
+    "core-js": "^3.10.1",
+    "es-module-shims": "^0.10.4"
+  },
+  "dependencies": {
+    "canvas-context": "^3.0.2"
   }
 }
