@@ -1,6 +1,6 @@
 {
   "name": "canvas-thumbnail-cache",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Draw images into a canvas square grid for fast retrieval at a thumbnail size.",
   "keywords": [
     "canvas",
@@ -26,16 +26,16 @@
   "type": "module",
   "main": "index.js",
   "types": "types/index.d.ts",
-  "engines": {
-    "node": ">=15.0.0",
-    "npm": ">=7.0.0"
+  "dependencies": {
+    "canvas-context": "^3.0.2"
   },
   "devDependencies": {
     "async-preloader": "^5.0.2",
     "core-js": "^3.10.1",
     "es-module-shims": "^0.10.4"
   },
-  "dependencies": {
-    "canvas-context": "^3.0.2"
+  "engines": {
+    "node": ">=15.0.0",
+    "npm": ">=7.0.0"
   }
 }
