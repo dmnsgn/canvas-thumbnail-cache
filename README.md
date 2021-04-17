@@ -51,7 +51,7 @@ const thumbnailsCache = new CanvasThumbnailCache({
   });
 
   items.map(async (item) => {
-    const image = await AsyncPreloader.default.loadItem(item);
+    const image = await AsyncPreloader.loadItem(item);
 
     thumbnailsCache.add(item.id, image);
   });
