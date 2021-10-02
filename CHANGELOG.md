@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.1.0](https://github.com/dmnsgn/canvas-thumbnail-cache/compare/v2.0.1...v2.1.0) (2021-10-02)
+
+
+### Features
+
+* add exports field to package.json ([e4ec595](https://github.com/dmnsgn/canvas-thumbnail-cache/commit/e4ec595374db6ec479e5f724862e30fd3e22cc2e))
+
+
+
 ## [2.0.1](https://github.com/dmnsgn/canvas-thumbnail-cache/compare/v2.0.0...v2.0.1) (2021-04-17)
 
 
