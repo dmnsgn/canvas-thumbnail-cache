@@ -1,4 +1,285 @@
-import './common/web.url-db866b9f.js';
+import { a as anObject, b as aCallable, f as functionCall, _ as _export, g as getBuiltIn, c as global_1 } from './common/es.error.cause-cb773bc2.js';
+import { f as functionBindContext, i as iterate, s as speciesConstructor, a as asyncIteratorIteration } from './common/async-iterator-iteration-4ea6b040.js';
+
+// https://github.com/tc39/collection-methods
+var collectionDeleteAll = function deleteAll(/* ...elements */) {
+  var collection = anObject(this);
+  var remover = aCallable(collection['delete']);
+  var allDeleted = true;
+  var wasDeleted;
+  for (var k = 0, len = arguments.length; k < len; k++) {
+    wasDeleted = functionCall(remover, collection, arguments[k]);
+    allDeleted = allDeleted && wasDeleted;
+  }
+  return !!allDeleted;
+};
+
+// `Map.prototype.deleteAll` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  deleteAll: collectionDeleteAll
+});
+
+// `Map.prototype.emplace` method
+// https://github.com/thumbsupep/proposal-upsert
+var mapEmplace = function emplace(key, handler) {
+  var map = anObject(this);
+  var get = aCallable(map.get);
+  var has = aCallable(map.has);
+  var set = aCallable(map.set);
+  var value = (functionCall(has, map, key) && 'update' in handler)
+    ? handler.update(functionCall(get, map, key), key, map)
+    : handler.insert(key, map);
+  functionCall(set, map, key, value);
+  return value;
+};
+
+// `Map.prototype.emplace` method
+// https://github.com/thumbsupep/proposal-upsert
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  emplace: mapEmplace
+});
+
+var getMapIterator = function (it) {
+  // eslint-disable-next-line es/no-map -- safe
+  return functionCall(Map.prototype.entries, it);
+};
+
+// `Map.prototype.every` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  every: function every(callbackfn /* , thisArg */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var boundFunction = functionBindContext(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    return !iterate(iterator, function (key, value, stop) {
+      if (!boundFunction(value, key, map)) return stop();
+    }, { AS_ENTRIES: true, IS_ITERATOR: true, INTERRUPTED: true }).stopped;
+  }
+});
+
+// `Map.prototype.filter` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  filter: function filter(callbackfn /* , thisArg */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var boundFunction = functionBindContext(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    var newMap = new (speciesConstructor(map, getBuiltIn('Map')))();
+    var setter = aCallable(newMap.set);
+    iterate(iterator, function (key, value) {
+      if (boundFunction(value, key, map)) functionCall(setter, newMap, key, value);
+    }, { AS_ENTRIES: true, IS_ITERATOR: true });
+    return newMap;
+  }
+});
+
+// `Map.prototype.find` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  find: function find(callbackfn /* , thisArg */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var boundFunction = functionBindContext(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    return iterate(iterator, function (key, value, stop) {
+      if (boundFunction(value, key, map)) return stop(value);
+    }, { AS_ENTRIES: true, IS_ITERATOR: true, INTERRUPTED: true }).result;
+  }
+});
+
+// `Map.prototype.findKey` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  findKey: function findKey(callbackfn /* , thisArg */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var boundFunction = functionBindContext(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    return iterate(iterator, function (key, value, stop) {
+      if (boundFunction(value, key, map)) return stop(key);
+    }, { AS_ENTRIES: true, IS_ITERATOR: true, INTERRUPTED: true }).result;
+  }
+});
+
+// `SameValueZero` abstract operation
+// https://tc39.es/ecma262/#sec-samevaluezero
+var sameValueZero = function (x, y) {
+  // eslint-disable-next-line no-self-compare -- NaN check
+  return x === y || x != x && y != y;
+};
+
+// `Map.prototype.includes` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  includes: function includes(searchElement) {
+    return iterate(getMapIterator(anObject(this)), function (key, value, stop) {
+      if (sameValueZero(value, searchElement)) return stop();
+    }, { AS_ENTRIES: true, IS_ITERATOR: true, INTERRUPTED: true }).stopped;
+  }
+});
+
+// `Map.prototype.keyOf` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  keyOf: function keyOf(searchElement) {
+    return iterate(getMapIterator(anObject(this)), function (key, value, stop) {
+      if (value === searchElement) return stop(key);
+    }, { AS_ENTRIES: true, IS_ITERATOR: true, INTERRUPTED: true }).result;
+  }
+});
+
+// `Map.prototype.mapKeys` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  mapKeys: function mapKeys(callbackfn /* , thisArg */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var boundFunction = functionBindContext(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    var newMap = new (speciesConstructor(map, getBuiltIn('Map')))();
+    var setter = aCallable(newMap.set);
+    iterate(iterator, function (key, value) {
+      functionCall(setter, newMap, boundFunction(value, key, map), value);
+    }, { AS_ENTRIES: true, IS_ITERATOR: true });
+    return newMap;
+  }
+});
+
+// `Map.prototype.mapValues` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  mapValues: function mapValues(callbackfn /* , thisArg */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var boundFunction = functionBindContext(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    var newMap = new (speciesConstructor(map, getBuiltIn('Map')))();
+    var setter = aCallable(newMap.set);
+    iterate(iterator, function (key, value) {
+      functionCall(setter, newMap, key, boundFunction(value, key, map));
+    }, { AS_ENTRIES: true, IS_ITERATOR: true });
+    return newMap;
+  }
+});
+
+// `Map.prototype.merge` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
+  merge: function merge(iterable /* ...iterables */) {
+    var map = anObject(this);
+    var setter = aCallable(map.set);
+    var argumentsLength = arguments.length;
+    var i = 0;
+    while (i < argumentsLength) {
+      iterate(arguments[i++], setter, { that: map, AS_ENTRIES: true });
+    }
+    return map;
+  }
+});
+
+var TypeError$1 = global_1.TypeError;
+
+// `Map.prototype.reduce` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  reduce: function reduce(callbackfn /* , initialValue */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var noInitial = arguments.length < 2;
+    var accumulator = noInitial ? undefined : arguments[1];
+    aCallable(callbackfn);
+    iterate(iterator, function (key, value) {
+      if (noInitial) {
+        noInitial = false;
+        accumulator = value;
+      } else {
+        accumulator = callbackfn(accumulator, value, key, map);
+      }
+    }, { AS_ENTRIES: true, IS_ITERATOR: true });
+    if (noInitial) throw TypeError$1('Reduce of empty map with no initial value');
+    return accumulator;
+  }
+});
+
+// `Set.prototype.some` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  some: function some(callbackfn /* , thisArg */) {
+    var map = anObject(this);
+    var iterator = getMapIterator(map);
+    var boundFunction = functionBindContext(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    return iterate(iterator, function (key, value, stop) {
+      if (boundFunction(value, key, map)) return stop();
+    }, { AS_ENTRIES: true, IS_ITERATOR: true, INTERRUPTED: true }).stopped;
+  }
+});
+
+var TypeError$2 = global_1.TypeError;
+
+// `Set.prototype.update` method
+// https://github.com/tc39/proposal-collection-methods
+_export({ target: 'Map', proto: true, real: true, forced: true }, {
+  update: function update(key, callback /* , thunk */) {
+    var map = anObject(this);
+    var get = aCallable(map.get);
+    var has = aCallable(map.has);
+    var set = aCallable(map.set);
+    var length = arguments.length;
+    aCallable(callback);
+    var isPresentInMap = functionCall(has, map, key);
+    if (!isPresentInMap && length < 3) {
+      throw TypeError$2('Updating absent value');
+    }
+    var value = isPresentInMap ? functionCall(get, map, key) : aCallable(length > 2 ? arguments[2] : undefined)(key, map);
+    functionCall(set, map, key, callback(value, key, map));
+    return map;
+  }
+});
+
+// https://github.com/tc39/proposal-iterator-helpers
+
+var $find = asyncIteratorIteration.find;
+
+_export({ target: 'AsyncIterator', proto: true, real: true, forced: true }, {
+  find: function find(fn) {
+    return $find(this, fn);
+  }
+});
+
+// https://github.com/tc39/proposal-iterator-helpers
+
+
+
+
+
+_export({ target: 'Iterator', proto: true, real: true, forced: true }, {
+  find: function find(fn) {
+    anObject(this);
+    aCallable(fn);
+    return iterate(this, function (value, stop) {
+      if (fn(value)) return stop(value);
+    }, { IS_ITERATOR: true, INTERRUPTED: true }).result;
+  }
+});
+
+// https://github.com/tc39/proposal-iterator-helpers
+
+var $forEach = asyncIteratorIteration.forEach;
+
+_export({ target: 'AsyncIterator', proto: true, real: true, forced: true }, {
+  forEach: function forEach(fn) {
+    return $forEach(this, fn);
+  }
+});
+
+// https://github.com/tc39/proposal-iterator-helpers
+
+
+
+
+_export({ target: 'Iterator', proto: true, real: true, forced: true }, {
+  forEach: function forEach(fn) {
+    iterate(anObject(this), fn, { IS_ITERATOR: true });
+  }
+});
 
 /* Font Face Observer v3.3.1 - © Bram Stein - Damien Seguin. License: BSD-3-Clause */
 function _classCallCheck(instance, Constructor) {
@@ -594,7 +875,7 @@ var LoaderKey;
   LoaderKey["Font"] = "Font";
 })(LoaderKey || (LoaderKey = {}));
 
-const isSafari = navigator && navigator.userAgent.indexOf("Safari") > -1;
+const isSafari = typeof navigator !== "undefined" && navigator && navigator.userAgent.indexOf("Safari") > -1;
 /**
  * AsyncPreloader: assets preloader using ES2017 async/await and fetch.
  *
@@ -655,7 +936,7 @@ class AsyncPreloader {
 
 
     this.loadItem = async item => {
-      const extension = AsyncPreloader.getFileExtension(item.src);
+      const extension = AsyncPreloader.getFileExtension(item.src || "");
       const loaderKey = item.loader || AsyncPreloader.getLoaderKey(extension);
       const loadedItem = await this[`load` + loaderKey](item);
       this.items.set(item.id || item.src, loadedItem);
@@ -683,7 +964,7 @@ class AsyncPreloader {
      * Load an item and parse the Response as text
      *
      * @param {LoadItem} item Item to load
-     * @returns {Promise<LoadedValue>} Fulfilled value of parsed Response
+     * @returns {Promise<string>} Fulfilled value of parsed Response
      */
 
 
@@ -695,7 +976,7 @@ class AsyncPreloader {
      * Load an item and parse the Response as json
      *
      * @param {LoadItem} item Item to load
-     * @returns {Promise<LoadedValue>} Fulfilled value of parsed Response
+     * @returns {Promise<JSON>} Fulfilled value of parsed Response
      */
 
 
@@ -707,7 +988,7 @@ class AsyncPreloader {
      * Load an item and parse the Response as arrayBuffer
      *
      * @param {LoadItem} item Item to load
-     * @returns {Promise<LoadedValue>} Fulfilled value of parsed Response
+     * @returns {Promise<ArrayBuffer>} Fulfilled value of parsed Response
      */
 
 
@@ -719,7 +1000,7 @@ class AsyncPreloader {
      * Load an item and parse the Response as blob
      *
      * @param {LoadItem} item Item to load
-     * @returns {Promise<LoadedValue>} Fulfilled value of parsed Response
+     * @returns {Promise<Blob>} Fulfilled value of parsed Response
      */
 
 
@@ -731,7 +1012,7 @@ class AsyncPreloader {
      * Load an item and parse the Response as formData
      *
      * @param {LoadItem} item Item to load
-     * @returns {Promise<LoadedValue>} Fulfilled value of parsed Response
+     * @returns {Promise<FormData>} Fulfilled value of parsed Response
      */
 
 
@@ -866,18 +1147,31 @@ class AsyncPreloader {
       return AsyncPreloader.domParser.parseFromString(data, item.mimeType);
     };
     /**
-     * Load a font via a FontFaceObserver instance
+     * Load a font via FontFace or check a font is loaded via FontFaceObserver instance
      *
-     * @param {LoadItem} item Item to load (id correspond to the fontName).
-     * @returns {Promise<string>} Fulfilled value with fontName initial id.
+     * @param {LoadItem} item Item to load (id correspond to the font family name).
+     * @returns {Promise<FontFace | string>} Fulfilled value with FontFace instance or initial id if no src provided.
      */
 
 
     this.loadFont = async item => {
-      const fontName = item.id;
-      const font = new FontFaceObserver(fontName, item.options || {});
-      await font.load();
-      return fontName;
+      const fontName = item.id || AsyncPreloader.getFileName(item.src);
+      const options = item.fontOptions || {};
+
+      if (!item.src) {
+        const font = new FontFaceObserver(fontName, options.variant || {});
+        await font.load(options.testString, options.timeout);
+        return fontName;
+      }
+
+      const source = item.body === "arrayBuffer" ? await this.loadArrayBuffer({
+        src: item.src
+      }) : `url(${item.src})`;
+      const font = new FontFace(fontName, source, options.descriptors);
+      return await font.load().then(font => {
+        document.fonts.add(font);
+        return font;
+      });
     };
   } // Utils
 
@@ -908,15 +1202,37 @@ class AsyncPreloader {
     return AsyncPreloader.getProp(object[p.shift()], p);
   }
   /**
-   * Get file extension from path
+   * Get file extension
    *
-   * @param {(RequestInfo | string)} path
+   * @param {string} path
    * @returns {string}
    */
 
 
   static getFileExtension(path) {
-    return (path.match(/[^\\/]\.([^.\\/]+)$/) || [null]).pop();
+    return ((path === null || path === void 0 ? void 0 : path.match(/[^\\/]\.([^.\\/]+)$/)) || [null]).pop();
+  }
+  /**
+   * Get file base name
+   *
+   * @param {string} path
+   * @returns {string}
+   */
+
+
+  static getFileBaseName(path) {
+    return path.split(/[\\/]/).pop();
+  }
+  /**
+   * Get file name
+   *
+   * @param {string} path
+   * @returns {string}
+   */
+
+
+  static getFileName(path) {
+    return AsyncPreloader.getFileBaseName(path).split(".").slice(0, -1).join(".") || path;
   }
   /**
    * Retrieve loader key from extension (when the loader option isn't specified in the LoadItem)
@@ -977,7 +1293,7 @@ AsyncPreloader.loaders = new Map().set(LoaderKey.Text, {
  * DOMParser instance for the XML loader
  */
 
-AsyncPreloader.domParser = new DOMParser();
+AsyncPreloader.domParser = typeof DOMParser !== "undefined" && new DOMParser();
 const AsyncPreloaderInstance = new AsyncPreloader();
 
 export default AsyncPreloaderInstance;

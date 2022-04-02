@@ -28,15 +28,14 @@
   "main": "index.js",
   "types": "types/index.d.ts",
   "dependencies": {
-    "canvas-context": "^3.0.2"
+    "canvas-context": "^3.2.0"
   },
   "devDependencies": {
-    "async-preloader": "^5.0.2",
-    "core-js": "^3.10.1",
-    "es-module-shims": "^0.10.4"
+    "async-preloader": "^6.1.2",
+    "es-module-shims": "^1.5.2"
   },
   "engines": {
-    "node": ">=15.0.0",
+    "node": ">=16.0.0",
     "npm": ">=7.0.0"
   }
 }

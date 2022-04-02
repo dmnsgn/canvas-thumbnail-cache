@@ -1,9 +1,11 @@
+import './common/es.error.cause-cb773bc2.js';
+
 /**
  * @module createCanvasContext
  */
-const contextTypeList = ["2d", "webgl", "experimental-webgl", "webgl2", "webgl2-compute", "bitmaprenderer", "gpupresent"];
+const contextTypeList = ["2d", "webgl", "experimental-webgl", "webgl2", "webgl2-compute", "bitmaprenderer", "gpupresent", "webgpu"];
 /**
- * Create a RenderingContext (2d, webgl, webgl2, bitmaprenderer, gpupresent), optionally offscreen for possible use in a Worker.
+ * Create a RenderingContext (2d, webgl, webgl2, bitmaprenderer, webgpu), optionally offscreen for possible use in a Worker.
  *
  * @alias module:createCanvasContext
  * @param {import("./types.js").ContextType} [contextType="2d"]
