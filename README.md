@@ -107,7 +107,7 @@ Creates an instance of CanvasThumbnailCache.
 
 Reset and clear the canvas size and empty the thumbnails cache.
 
-**Kind**: instance method of [<code>CanvasThumbnailCache</code>](#CanvasThumbnailCache)  
+**Kind**: instance method of [<code>CanvasThumbnailCache</code>](#CanvasThumbnailCache)
 <a name="CanvasThumbnailCache+add"></a>
 
 ### canvasThumbnailCache.add(key, source) ⇒ [<code>Slot</code>](#Slot)
@@ -151,7 +151,7 @@ Remove the specified image from the cache and clear its slot.
 
 ## Slot : <code>Object</code>
 
-**Kind**: global typedef  
+**Kind**: global typedef
 **Properties**
 
 | Name | Type                | Description                      |
@@ -163,7 +163,7 @@ Remove the specified image from the cache and clear its slot.
 
 ## Options : <code>Object</code>
 
-**Kind**: global typedef  
+**Kind**: global typedef
 **Properties**
 
 | Name       | Type                                  | Default                                                                       | Description                                                                      |
