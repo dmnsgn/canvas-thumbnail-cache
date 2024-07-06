@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -39,7 +39,9 @@
       import createCanvasContext from "canvas-context";
       import AsyncPreloader from "async-preloader";
 
-      const { canvas, context } = createCanvasContext("2d");
+      const { canvas, context } = createCanvasContext("2d", {
+        willReadFrequently: true,
+      });
       document.body.appendChild(canvas);
 
       const COUNT = 50;
@@ -51,10 +53,16 @@
 
       (async () => {
         const items = Array.from({ length: COUNT }, (_, index) => {
+          let size = [(100 + index * 10) % 200, 200];
+          if (index % 2 === 0) size.reverse();
           return {
             id: index,
-            src: `https://source.unsplash.com/collection/155977/${index}`,
+            src: `https://placehold.co/${size.join("x")}/${Math.floor(Math.random() * 16777215).toString(16)}/fff/png?id=${index}`,
             loader: "Image",
+            body: "blob",
+            options: {
+              crossOrigin: "anonymous",
+            },
           };
         });
 
