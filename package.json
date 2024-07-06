@@ -1,6 +1,6 @@
 {
   "name": "canvas-thumbnail-cache",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Draw images into a canvas square grid for fast retrieval at a thumbnail size.",
   "keywords": [
     "canvas",
@@ -9,7 +9,10 @@
   ],
   "homepage": "https://github.com/dmnsgn/canvas-thumbnail-cache",
   "bugs": "https://github.com/dmnsgn/canvas-thumbnail-cache/issues",
-  "repository": "dmnsgn/canvas-thumbnail-cache",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmnsgn/canvas-thumbnail-cache.git"
+  },
   "funding": [
     {
       "type": "individual",

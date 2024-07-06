@@ -72,9 +72,9 @@ const thumbnailsCache = new CanvasThumbnailCache({
 ## Typedefs
 
 <dl>
-<dt><a href="#Slot">Slot</a> : <code>Object</code></dt>
+<dt><a href="#Slot">Slot</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#Options">Options</a> : <code>Object</code></dt>
+<dt><a href="#Options">Options</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
 
@@ -149,7 +149,7 @@ Remove the specified image from the cache and clear its slot.
 
 <a name="Slot"></a>
 
-## Slot : <code>Object</code>
+## Slot : <code>object</code>
 
 **Kind**: global typedef
 **Properties**
@@ -161,7 +161,7 @@ Remove the specified image from the cache and clear its slot.
 
 <a name="Options"></a>
 
-## Options : <code>Object</code>
+## Options : <code>object</code>
 
 **Kind**: global typedef
 **Properties**

@@ -99,7 +99,7 @@ class CanvasThumbnailCache {
         this.indices.splice(
           y * this.size * 2 + this.size,
           0,
-          ...this.getIndexArray(this.size)
+          ...this.getIndexArray(this.size),
         );
         this.indices.push(...this.getIndexArray(this.size * 2));
       }
@@ -129,7 +129,7 @@ class CanvasThumbnailCache {
         0,
         0,
         newSize / 2,
-        newSize / 2
+        newSize / 2,
       );
       this.context.canvas.width = newSize;
       this.context.canvas.height = newSize;
@@ -152,7 +152,7 @@ class CanvasThumbnailCache {
             this.slotSize / 2 -
             this.slotSize / ratio / 2,
           this.slotSize,
-          this.slotSize / ratio
+          this.slotSize / ratio,
         );
       } else {
         this.context.drawImage(
@@ -162,7 +162,7 @@ class CanvasThumbnailCache {
             (this.slotSize * ratio) / 2,
           slot.y * this.slotSize,
           this.slotSize * ratio,
-          this.slotSize
+          this.slotSize,
         );
       }
     } catch (error) {
