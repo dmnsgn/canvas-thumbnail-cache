@@ -1,13 +1,13 @@
 import canvasContext from "canvas-context";
 
 /**
- * @typedef {Object} Slot
+ * @typedef {object} Slot
  * @property {number} x Horizontal position in the grid.
  * @property {number} y Vertical position in the grid.
  */
 
 /**
- * @typedef {Object} Options
+ * @typedef {object} Options
  * @property {CanvasRenderingContext2D} [context=createCanvasContext("2d", { offscreen: true }).context] Canvas to render thumbnails too. Will try to get an offscreen canvas by default.
  * @property {number} [size=2]  Size of the canvas at start: a square with sides of length `slotSize * size`.
  * @property {number} [slotSize=64] Size of the thumbnails. Will be drawn from center of the grid slot.
