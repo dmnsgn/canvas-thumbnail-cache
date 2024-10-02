@@ -31,7 +31,9 @@ import CanvasThumbnailCache from "canvas-thumbnail-cache";
 import createCanvasContext from "canvas-context";
 import AsyncPreloader from "async-preloader";
 
-const { canvas, context } = createCanvasContext("2d");
+const { canvas, context } = createCanvasContext("2d", {
+  willReadFrequently: true,
+});
 document.body.appendChild(canvas);
 
 const COUNT = 50;
@@ -41,21 +43,25 @@ const thumbnailsCache = new CanvasThumbnailCache({
   slotSize: 128,
 });
 
-(async () => {
-  const items = Array.from({ length: COUNT }, (_, index) => {
-    return {
-      id: index,
-      src: `https://source.unsplash.com/collection/155977/${index}`,
-      loader: "Image",
-    };
-  });
+const items = Array.from({ length: COUNT }, (_, index) => {
+  let size = [(100 + index * 10) % 200, 200];
+  if (index % 2 === 0) size.reverse();
+  return {
+    id: index,
+    src: `https://picsum.photos/${size.join("/")}`,
+    loader: "Image",
+    body: "blob",
+    options: {
+      crossOrigin: "anonymous",
+    },
+  };
+});
 
-  items.map(async (item) => {
-    const image = await AsyncPreloader.loadItem(item);
+items.map(async (item) => {
+  const image = await AsyncPreloader.loadItem(item);
 
-    thumbnailsCache.add(item.id, image);
-  });
-})();
+  thumbnailsCache.add(item.id, image);
+});
 ```
 
 ## API

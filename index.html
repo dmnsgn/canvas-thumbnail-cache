@@ -51,27 +51,25 @@
         slotSize: 128,
       });
 
-      (async () => {
-        const items = Array.from({ length: COUNT }, (_, index) => {
-          let size = [(100 + index * 10) % 200, 200];
-          if (index % 2 === 0) size.reverse();
-          return {
-            id: index,
-            src: `https://placehold.co/${size.join("x")}/${Math.floor(Math.random() * 16777215).toString(16)}/404040/png?id=${index}`,
-            loader: "Image",
-            body: "blob",
-            options: {
-              crossOrigin: "anonymous",
-            },
-          };
-        });
+      const items = Array.from({ length: COUNT }, (_, index) => {
+        let size = [(100 + index * 10) % 200, 200];
+        if (index % 2 === 0) size.reverse();
+        return {
+          id: index,
+          src: `https://picsum.photos/${size.join("/")}`,
+          loader: "Image",
+          body: "blob",
+          options: {
+            crossOrigin: "anonymous",
+          },
+        };
+      });
 
-        items.map(async (item) => {
-          const image = await AsyncPreloader.loadItem(item);
+      items.map(async (item) => {
+        const image = await AsyncPreloader.loadItem(item);
 
-          thumbnailsCache.add(item.id, image);
-        });
-      })();
+        thumbnailsCache.add(item.id, image);
+      });
     </script>
   </body>
 </html>
