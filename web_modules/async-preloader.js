@@ -452,8 +452,7 @@ _defineProperty(FontFaceObserver, "DEFAULT_TIMEOUT", 3000);
     LoaderKey["Font"] = "Font";
 })(LoaderKey || (LoaderKey = {}));
 
-var _globalThis_navigator;
-const isSafari = /^((?!chrome|android).)*safari/i.test((_globalThis_navigator = globalThis.navigator) == null ? void 0 : _globalThis_navigator.userAgent) === true;
+const isSafari = /^((?!chrome|android).)*safari/i.test(globalThis.navigator?.userAgent) === true;
 /**
  * AsyncPreloader: assets preloader using ES2017 async/await and fetch.
  *
@@ -739,7 +738,7 @@ const isSafari = /^((?!chrome|android).)*safari/i.test((_globalThis_navigator = 
      * @param path
      * @returns
      */ static getFileExtension(path) {
-        return ((path == null ? void 0 : path.match(/[^\\/]\.([^.\\/]+)$/)) || [
+        return (path?.match(/[^\\/]\.([^.\\/]+)$/) || [
             null
         ]).pop();
     }

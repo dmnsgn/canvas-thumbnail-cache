@@ -39,7 +39,7 @@
     "canvas-context": "^3.3.0"
   },
   "devDependencies": {
-    "async-preloader": "^8.0.3",
+    "async-preloader": "^8.0.4",
     "es-module-shims": "^1.10.0"
   },
   "engines": {
