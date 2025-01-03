@@ -92,6 +92,7 @@ items.map(async (item) => {
 
 - [CanvasThumbnailCache](#CanvasThumbnailCache)
   - [new CanvasThumbnailCache([options])](#new_CanvasThumbnailCache_new)
+  - [.slotDrawSize](#CanvasThumbnailCache+slotDrawSize) ⇒ <code>number</code>
   - [.reset()](#CanvasThumbnailCache+reset)
   - [.add(key, source)](#CanvasThumbnailCache+add) ⇒ [<code>Slot</code>](#Slot)
   - [.get(key)](#CanvasThumbnailCache+get) ⇒ [<code>Slot</code>](#Slot)
@@ -107,6 +108,13 @@ Creates an instance of CanvasThumbnailCache.
 | --------- | -------------------------------- | --------------- |
 | [options] | [<code>Options</code>](#Options) | <code>{}</code> |
 
+<a name="CanvasThumbnailCache+slotDrawSize"></a>
+
+### canvasThumbnailCache.slotDrawSize ⇒ <code>number</code>
+
+Retrieve the slot draw size (slot size without padding)
+
+**Kind**: instance property of [<code>CanvasThumbnailCache</code>](#CanvasThumbnailCache)
 <a name="CanvasThumbnailCache+reset"></a>
 
 ### canvasThumbnailCache.reset()
@@ -177,6 +185,7 @@ Remove the specified image from the cache and clear its slot.
 | [context]  | <code>CanvasRenderingContext2D</code> | <code>createCanvasContext(&quot;2d&quot;, { offscreen: true }).context</code> | Canvas to render thumbnails too. Will try to get an offscreen canvas by default. |
 | [size]     | <code>number</code>                   | <code>2</code>                                                                | Size of the canvas at start: a square with sides of length `slotSize * size`.    |
 | [slotSize] | <code>number</code>                   | <code>64</code>                                                               | Size of the thumbnails. Will be drawn from center of the grid slot.              |
+| [padding]  | <code>number</code>                   | <code>0</code>                                                                | Padding around the thumbnails, inside the slots.                                 |
 
 <!-- api-end -->
 

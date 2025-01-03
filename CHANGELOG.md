@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [2.2.0](https://github.com/dmnsgn/canvas-thumbnail-cache/compare/v2.1.3...v2.2.0) (2025-01-03)
+
+
+### Features
+
+* add padding option ([49bdb4f](https://github.com/dmnsgn/canvas-thumbnail-cache/commit/49bdb4f7821eb65f36b6c2fdc3b7ace1b47ab6c8))
+
+
+
 ## [2.1.3](https://github.com/dmnsgn/canvas-thumbnail-cache/compare/v2.1.2...v2.1.3) (2024-10-02)
 
 
