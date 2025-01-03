@@ -11,9 +11,18 @@ import canvasContext from "canvas-context";
  * @property {CanvasRenderingContext2D} [context=createCanvasContext("2d", { offscreen: true }).context] Canvas to render thumbnails too. Will try to get an offscreen canvas by default.
  * @property {number} [size=2]  Size of the canvas at start: a square with sides of length `slotSize * size`.
  * @property {number} [slotSize=64] Size of the thumbnails. Will be drawn from center of the grid slot.
+ * @property {number} [padding=0] Padding around the thumbnails, inside the slots.
  */
 
 class CanvasThumbnailCache {
+  /**
+   * Retrieve the slot draw size (slot size without padding)
+   * @returns {number}
+   */
+  get slotDrawSize() {
+    return this.slotSize - this.padding * 2;
+  }
+
   /**
    * Creates an instance of CanvasThumbnailCache.
    * @param {Options} [options={}]
@@ -22,9 +31,11 @@ class CanvasThumbnailCache {
     context = canvasContext("2d", { offscreen: true }).context,
     slotSize = 64,
     size = 2,
+    padding = 0,
   } = {}) {
     this.context = context;
     this.slotSize = slotSize;
+    this.padding = padding;
 
     this.initSize = size;
 
@@ -142,27 +153,28 @@ class CanvasThumbnailCache {
    */
   drawSource(image, slot) {
     const ratio = image.naturalWidth / image.naturalHeight;
+    const drawSize = this.slotDrawSize;
 
     try {
       if (ratio > 1) {
+        const dh = drawSize / ratio;
+
         this.context.drawImage(
           image,
-          slot.x * this.slotSize,
-          slot.y * this.slotSize +
-            this.slotSize / 2 -
-            this.slotSize / ratio / 2,
-          this.slotSize,
-          this.slotSize / ratio,
+          slot.x * this.slotSize + this.padding,
+          slot.y * this.slotSize + this.padding + drawSize / 2 - dh / 2,
+          drawSize,
+          dh,
         );
       } else {
+        const dw = drawSize * ratio;
+
         this.context.drawImage(
           image,
-          slot.x * this.slotSize +
-            this.slotSize / 2 -
-            (this.slotSize * ratio) / 2,
-          slot.y * this.slotSize,
-          this.slotSize * ratio,
-          this.slotSize,
+          slot.x * this.slotSize + this.padding + drawSize / 2 - dw / 2,
+          slot.y * this.slotSize + this.padding,
+          dw,
+          drawSize,
         );
       }
     } catch (error) {
